@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8">
+      <h2>Admin Login</h2>
+
+      <form #adminForm="ngForm" novalidate>
+        <div class="form-group">
+          <label for="username">Username*</label>
+          <input type="text" class="form-control" [class.nope]="invalidUsername || (username.invalid && (username.touched || submitted))" placeholder="Username" autocomplete="off" required [(ngModel)]="admin.username" name="username" #username="ngModel" (ngModelChange)="hideError()">
+          <div class="errorMsg" *ngIf="username.invalid && (username.touched || submitted)">
+            <p *ngIf="username.errors.required">Username is required</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password*</label>
+          <input type="password" class="form-control" [class.nope]="invalidPassword || (password.invalid && (password.touched || submitted))" placeholder="Password" autocomplete="off" required [(ngModel)]="admin.password" name="password" #password="ngModel" (ngModelChange)="hideError()">
+          <div class="errorMsg" *ngIf="password.invalid && (password.touched || submitted)">
+            <p *ngIf="password.errors.required">Password is required</p>
+          </div>
+        </div>
+
+        <div class="errorMsg">
+          <p *ngIf="invalid">{{ err }}</p>
+
+          <p *ngIf="error">Something went wrong... Please make sure you have a WiFi or mobile data connection and try refreshing your&nbsp;browser.</p>
+        </div>
+
+        <div class="text-center">
+          <p class="disclaimer">* Required field</p>
+
+          <button class="btn btn-success" (click)="login(admin, adminForm.valid)">Submit</button>
+          <button class="btn" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

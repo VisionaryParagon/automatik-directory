@@ -1,0 +1,50 @@
+<div class="container">
+  <div *ngIf="!error">
+    <div class="text-center" *ngIf="admin">
+      <button class="btn btn-primary" (click)="goAdmin()"><i class="fa fa-lock"></i> Admin</button>
+    </div>
+
+    <div class="d-flex justify-content-center my-4" *ngIf="loading">
+      <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Search..." [(ngModel)]="filter" (keyup)="updateFilter()">
+        <span matPrefix><i class="fa fa-search fa-lg"></i> &nbsp;</span>
+        <span matSuffix *ngIf="filter" (click)="clearFilter()"><i class="fa fa-times fa-lg"></i></span>
+      </mat-form-field>
+
+      <ul id="contacts">
+        <div class="group">
+          <h2>automätik Staff</h2>
+
+          <li *ngFor="let contact of contacts | sort: 'first_name'">
+            <div class="row">
+              <div class="col-12">
+                <img [src]="contact.image" [alt]="contact.first_name + ' ' + contact.last_name">
+
+                <div class="info">
+                  <h3>{{contact.first_name}} {{contact.last_name}}</h3>
+                  <p><em>{{contact.role}}</em></p>
+                  <p><i class="fa fa-phone"></i>: <span>{{contact.phone | tel}}</span></p>
+                  <p><i class="fa fa-envelope"></i>: {{contact.email}}</p>
+                </div>
+
+                <div class="buttons">
+                  <a [href]="'tel:' + contact.phone" title="Call"><i class="fa fa-phone"></i></a>
+                  <a [href]="sanitize('sms:' + contact.phone)" title="Text"><i class="fa fa-comment"></i></a>
+                  <a [href]="'mailto:' + contact.email" title="Email"><i class="fa fa-envelope"></i></a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="error">
+    <p class="text-danger">Something went wrong... Please make sure you have a WiFi or mobile data connection and try refreshing your&nbsp;browser.</p>
+  </div>
+</div>

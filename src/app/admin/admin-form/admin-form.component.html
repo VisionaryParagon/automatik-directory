@@ -1,0 +1,81 @@
+<div mat-dialog-title>
+  <h3 *ngIf="!edit">New Contact</h3>
+  <h3 *ngIf="edit">Editing {{ contact.first_name }} {{ contact.last_name }}</h3>
+</div>
+
+<form #contactForm="ngForm" novalidate>
+  <mat-dialog-content>
+    <div *ngIf="!error && !success">
+      <div class="form-group">
+        <label for="firstName">First Name*</label>
+        <input type="text" class="form-control" [class.nope]="firstName.invalid && (firstName.touched || submitted)" placeholder="John" autocomplete="off" required [(ngModel)]="contact.first_name" name="firstName" #firstName="ngModel" (ngModelChange)="hideError()">
+        <div class="errorMsg" *ngIf="firstName.invalid && (firstName.touched || submitted)">
+          <p *ngIf="firstName.errors.required">First Name is required</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name*</label>
+        <input type="text" class="form-control" [class.nope]="lastName.invalid && (lastName.touched || submitted)" placeholder="Smith" autocomplete="off" required [(ngModel)]="contact.last_name" name="lastName" #lastName="ngModel" (ngModelChange)="hideError()">
+        <div class="errorMsg" *ngIf="lastName.invalid && (lastName.touched || submitted)">
+          <p *ngIf="lastName.errors.required">Last Name is required</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Cell Phone Number*</label>
+        <input type="text" class="form-control" [class.nope]="phone.invalid && (phone.touched || submitted)" placeholder="1234567890" autocomplete="off" required minlength="10" maxlength="12" pattern="^(\d)+$" [(ngModel)]="contact.phone" name="phone" #phone="ngModel" (ngModelChange)="hideError()">
+        <div class="errorMsg" *ngIf="phone.invalid && (phone.touched || submitted)">
+          <p *ngIf="phone.errors.required">Cell Phone Number is required</p>
+          <p *ngIf="phone.errors.minlength">Must be at least 10 digits</p>
+          <p *ngIf="phone.errors.maxlength">Must not be more than 12 digits</p>
+          <p *ngIf="phone.errors.pattern">Numbers only</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address*</label>
+        <input type="text" class="form-control" [class.nope]="email.invalid && (email.touched || submitted)" placeholder="name@email.com" autocomplete="off" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" [(ngModel)]="contact.email" name="email" #email="ngModel" (ngModelChange)="hideError()">
+        <div class="errorMsg" *ngIf="email.invalid && (email.touched || submitted)">
+          <p *ngIf="email.errors.required">Email Address is required</p>
+          <p *ngIf="email.errors.pattern">Invalid Email Address</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role/Title*</label>
+        <input type="text" class="form-control" [class.nope]="role.invalid && (role.touched || submitted)" placeholder="Role/Title" autocomplete="off" required [(ngModel)]="contact.role" name="role" #role="ngModel" (ngModelChange)="hideError()">
+        <div class="errorMsg" *ngIf="role.invalid && (role.touched || submitted)">
+          <p *ngIf="role.errors.required">Role/Title is required</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="text" class="form-control" placeholder="http://url.com/image.jpg" autocomplete="off" [(ngModel)]="contact.image" name="image" #image="ngModel" (ngModelChange)="hideError()">
+      </div>
+
+      <p class="disclaimer text-center">* Required field</p>
+    </div>
+
+    <div *ngIf="!error && success">
+      <h3 class="text-success">Success!</h3>
+
+      <p>{{ contact.first_name }} {{ contact.last_name }} has been <span *ngIf="!edit">added</span><span *ngIf="edit">edited</span>.</p>
+    </div>
+
+    <div *ngIf="error">
+      <p class="text-danger">Something went wrong... Please make sure you have a WiFi or mobile data connection and try refreshing your&nbsp;browser.</p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="justify-content-end">
+    <div *ngIf="!error && !success">
+      <button type="button" class="btn" mat-dialog-close>Cancel</button>
+      <button type="button" class="btn btn-success" (click)="saveContact(contactForm.valid)"><i class="fa fa-check"></i> Submit</button>
+    </div>
+    <div *ngIf="error || success">
+      <button type="button" class="btn btn-success" *ngIf="!error && !edit" (click)="addAnother()"><i class="fa fa-plus"></i> Add Another</button>
+      <button type="button" class="btn btn-danger" mat-dialog-close>Close</button>
+    </div>
+  </mat-dialog-actions>
+</form>
