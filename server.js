@@ -59,7 +59,7 @@ function ensureSecure(req, res, next) {
 app.all('*', ensureSecure);
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/dir', contactRoute);
-app.use('/admin', adminRoute);
+app.use('/admn', adminRoute);
 app.all('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });

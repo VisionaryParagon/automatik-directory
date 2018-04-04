@@ -4,10 +4,13 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { Contact } from '../../services/contact';
 import { ContactService } from '../../services/contact.service';
 
+import { FadeAnimation, TopDownAnimation } from '../../animations';
+
 @Component({
   selector: 'app-admin-form',
   templateUrl: './admin-form.component.html',
-  styleUrls: ['./admin-form.component.css']
+  styleUrls: ['./admin-form.component.css'],
+  animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class AdminFormComponent implements OnInit {
   contact: Contact;
@@ -23,7 +26,7 @@ export class AdminFormComponent implements OnInit {
 
   ngOnInit() {
     this.contact = this.contactService.getCurrentContact();
-    console.log(this.contact);
+    // console.log(this.contact);
 
     if (this.contact._id) {
       this.edit = true;
@@ -35,7 +38,7 @@ export class AdminFormComponent implements OnInit {
 
     if (isValid) {
       if (!this.contact.image) {
-        this.contact.image = 'https://automatik.us/images/no-image.jpg';
+        this.contact.image = '/assets/images/no-image.jpg';
       }
 
       if (!this.edit) {

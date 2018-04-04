@@ -1,4 +1,4 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap/scss/bootstrap.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "font-awesome.min.css";
 
@@ -56,6 +56,7 @@ ul {
 }
 
 li {
+  background: #fff;
   border-bottom: 2px solid #eee;
   padding: 20px 0;
 }
@@ -85,11 +86,19 @@ section {
   max-width: 940px;
 }
 
+.contactItem {
+  display: none;
+}
+
+.contactItem ~ .contactItem {
+  display: block;
+}
+
 img {
   border-radius: 50%;
   float: left;
   height: 80px;
-  margin: 0 10px;
+  margin: 0 10px 10px;
   width: auto;
 }
 
@@ -97,9 +106,9 @@ img {
   padding: 0 0 0 90px;
 }
 
-.buttons,
-.adminButtons {
+.buttons {
   clear: both;
+  margin: 0 10px;
   text-align: center;
 }
 
@@ -107,7 +116,6 @@ img {
   background: -moz-linear-gradient(top, rgba(229, 229, 229, 1) 0%, rgba(255, 255, 255, 1) 100%);
   background: -webkit-linear-gradient(top, rgba(229, 229, 229, 1) 0%, rgba(255, 255, 255, 1) 100%);
   background: linear-gradient(to bottom, rgba(229, 229, 229, 1) 0%, rgba(255, 255, 255, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#00ffffff', GradientType=0);
   border: 0.5px solid #ddd;
   border-radius: 5px;
   display: inline-block;
@@ -118,14 +126,8 @@ img {
   width: 32%;
 }
 
-.adminButtons a {
-  border-radius: 5px;
-  display: inline-block;
-  font-size: 20px;
-  margin: 10px 0 0;
-  padding: 5px;
-  text-align: center;
-  width: 49%;
+#printBtn {
+  display: none;
 }
 
 .contactBox {
@@ -137,8 +139,18 @@ img {
   border: none;
 }
 
-.adminBtns {
-  display: none;
+.contactBox .adminBtns {
+  height: 0;
+  opacity: 0;
+  transition: all 0.25s;
+  -moz-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+}
+
+.contactBox:hover .adminBtns {
+  height: 50px;
+  opacity: 1;
 }
 
 footer {
@@ -152,6 +164,14 @@ footer {
 
 .mat-form-field {
   font-size: 16px;
+}
+
+mat-form-field.mat-focused .mat-form-field-label {
+  color: #ffc11a;
+}
+
+span.mat-form-field-ripple {
+  background-color: #ffc11a;
 }
 
 .form-control {
@@ -168,8 +188,8 @@ footer {
   border-color: #a94442;
 }
 
-select {
-  margin: 0 0 15px;
+select.form-control:not([size]):not([multiple]) {
+  height: 40px;
 }
 
 button {
@@ -216,7 +236,7 @@ mat-dialog-container.mat-dialog-container {
 }
 
 div.mat-dialog-title {
-  box-shadow: 0 0 15px rgba(0, 0, 0, .5);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
   margin: 0;
   padding: 15px;
   position: relative;
@@ -228,7 +248,7 @@ mat-dialog-content.mat-dialog-content {
 }
 
 mat-dialog-actions.mat-dialog-actions {
-  box-shadow: 0 0 15px rgba(0, 0, 0, .5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
   margin: 0;
   padding: 5px 10px;
   position: relative;
@@ -246,15 +266,13 @@ mat-dialog-actions.mat-dialog-actions:last-child {
     float: left;
     padding: 0;
   }
-  .buttons,
-  .adminButtons {
+  .buttons {
     clear: none;
     float: right;
     height: 70px;
     width: 40%;
   }
-  .buttons a,
-  .adminButtons a {
+  .buttons a {
     font-size: 28px;
     height: 70px;
     line-height: 70px;
@@ -274,11 +292,42 @@ mat-dialog-actions.mat-dialog-actions:last-child {
 }
 
 @media all and (min-width:992px) {
+  #printBtn {
+    display: inline;
+  }
   .contactBox:nth-child(4) {
     border: none;
   }
   .contactBox:nth-child(3n+1) {
     clear: none;
+  }
+  .contactBox:nth-child(4n+1) {
+    clear: left;
+  }
+}
+
+@media print {
+  body {
+    visibility: hidden;
+  }
+  #printThis,
+  #printThis * {
+    visibility: visible;
+  }
+  #printThis {
+    left: 0;
+    position: absolute;
+    top: 30px;
+  }
+  .contactBox {
+    padding: 30px 15px;
+    page-break-inside: avoid;
+    width: 25%;
+  }
+  .contactBox:nth-child(2),
+  .contactBox:nth-child(3),
+  .contactBox:nth-child(4) {
+    border: none;
   }
   .contactBox:nth-child(4n+1) {
     clear: left;

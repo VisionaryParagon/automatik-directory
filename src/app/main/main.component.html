@@ -1,7 +1,9 @@
-<div class="container">
+<div class="container" [@fade]="true">
   <div *ngIf="!error">
-    <div class="text-center" *ngIf="admin">
-      <button class="btn btn-primary" (click)="goAdmin()"><i class="fa fa-lock"></i> Admin</button>
+    <div class="text-center">
+      <button class="btn btn-primary" routerLink="/full"><i class="fa fa-table"></i> View Full Directory</button>
+      <button class="btn btn-warning" (click)="insurance()"><i class="fa fa-car"></i> Vehicle Insurance</button>
+      <button class="btn btn-secondary" routerLink="/admin"><i class="fa fa-lock"></i> Admin</button>
     </div>
 
     <div class="d-flex justify-content-center my-4" *ngIf="loading">
@@ -17,24 +19,28 @@
 
       <ul id="contacts">
         <div class="group">
-          <h2>automätik Staff</h2>
-
-          <li *ngFor="let contact of contacts | sort: 'first_name'">
+          <li *ngFor="let contact of contacts | orderBy: ['last_name', 'first_name']">
             <div class="row">
               <div class="col-12">
                 <img [src]="contact.image" [alt]="contact.first_name + ' ' + contact.last_name">
 
                 <div class="info">
                   <h3>{{contact.first_name}} {{contact.last_name}}</h3>
-                  <p><em>{{contact.role}}</em></p>
-                  <p><i class="fa fa-phone"></i>: <span>{{contact.phone | tel}}</span></p>
-                  <p><i class="fa fa-envelope"></i>: {{contact.email}}</p>
+                  <p *ngIf="contact.pseudonym"><em><span>{{contact.pseudonym}}</span></em></p>
+                  <p *ngIf="contact.phone"><i class="fa fa-phone"></i>: <span>{{contact.phone | tel}}</span></p>
+                  <p *ngIf="contact.phone3"><i class="fa fa-phone"></i>: <span>{{contact.phone3 | tel}}</span></p>
+                  <p *ngIf="contact.fax"><i class="fa fa-fax"></i>: <span>{{contact.fax | tel}}</span></p>
+                  <p *ngIf="contact.email"><i class="fa fa-envelope"></i>: <span>{{contact.email}}</span></p>
                 </div>
 
-                <div class="buttons">
+                <div class="buttons" *ngIf="!contact.phone3">
                   <a [href]="'tel:' + contact.phone" title="Call"><i class="fa fa-phone"></i></a>
                   <a [href]="sanitize('sms:' + contact.phone)" title="Text"><i class="fa fa-comment"></i></a>
                   <a [href]="'mailto:' + contact.email" title="Email"><i class="fa fa-envelope"></i></a>
+                </div>
+
+                <div class="buttons" *ngIf="contact.phone3">
+                  <a [href]="'tel:' + contact.phone3" title="Call" style="width:100%;"><i class="fa fa-phone"></i></a>
                 </div>
               </div>
             </div>
@@ -44,7 +50,7 @@
     </div>
   </div>
 
-  <div *ngIf="error">
+  <div [@topDown]="true" *ngIf="error">
     <p class="text-danger">Something went wrong... Please make sure you have a WiFi or mobile data connection and try refreshing your&nbsp;browser.</p>
   </div>
 </div>

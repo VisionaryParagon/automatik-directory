@@ -3,11 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Main
 import { MainComponent } from './main/main.component';
+import { FullComponent } from './full/full.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent
+  },
+  {
+    path: 'full',
+    component: FullComponent
   },
   {
     path: 'admin',

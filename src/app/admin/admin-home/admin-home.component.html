@@ -1,9 +1,10 @@
-<div class="container">
+<div class="container" [@fade]="true">
   <div *ngIf="!error">
     <div class="text-center">
-      <button class="btn btn-success" (click)="newContact()"><i class="fa fa-plus"></i> New Contact</button>
-      <button class="btn btn-primary" (click)="directory()"><i class="fa fa-list"></i> Directory</button>
-      <button class="btn" (click)="logout()"><i class="fa fa-lock"></i> Logout</button>
+      <button class="btn btn-success" (click)="newContact()"><i class="fa fa-plus"></i> Add New Contact</button>
+      <button class="btn btn-primary" routerLink="/"><i class="fa fa-list"></i> View Contact List</button>
+      <button class="btn btn-primary" routerLink="/full"><i class="fa fa-list"></i> View Full Directory</button>
+      <button class="btn btn-secondary" (click)="logout()"><i class="fa fa-lock"></i> Logout</button>
     </div>
 
     <div class="d-flex justify-content-center my-4" *ngIf="loading">
@@ -17,35 +18,30 @@
         <span matSuffix *ngIf="filter" (click)="clearFilter()"><i class="fa fa-times fa-lg"></i></span>
       </mat-form-field>
 
-      <ul id="contacts">
-        <div class="group">
-          <h2>automätik Staff</h2>
+      <div class="row" id="printThis">
+        <div class="col-12 col-sm-4 col-md-3 contactBox" *ngFor="let contact of contacts | orderBy: ['last_name', 'first_name']">
+          <h3><span>{{contact.first_name}}</span> <span>{{contact.last_name}}</span></h3>
 
-          <li *ngFor="let contact of contacts | sort: 'first_name'">
-            <div class="row">
-              <div class="col-12">
-                <img [src]="contact.image" [alt]="contact.first_name + ' ' + contact.last_name">
+          <div class="adminBtns">
+            <a class="btn btn-warning" (click)="editContact(contact._id)"><i class="fa fa-edit"></i> Edit</a>
+            <a class="btn btn-danger" (click)="deleteContact(contact._id)"><i class="fa fa-window-close-o"></i> Delete</a>
+          </div>
 
-                <div class="info">
-                  <h3>{{contact.first_name}} {{contact.last_name}}</h3>
-                  <p><em>{{contact.role}}</em></p>
-                  <p><i class="fa fa-phone"></i>: <span>{{contact.phone | tel}}</span></p>
-                  <p><i class="fa fa-envelope"></i>: {{contact.email}}</p>
-                </div>
-
-                <div class="adminButtons">
-                  <a (click)="editContact(contact._id)" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                  <a (click)="deleteContact(contact._id)" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                </div>
-              </div>
-            </div>
-          </li>
+          <p *ngIf="contact.pseudonym"><em><span>{{contact.pseudonym}}</span></em></p>
+          <p *ngIf="contact.email">Email: <span>{{contact.email}}</span></p>
+          <p *ngIf="contact.phone">Cell: <span>{{contact.phone | tel}}</span></p>
+          <p *ngIf="contact.phone2">Home: <span>{{contact.phone2 | tel}}</span></p>
+          <p *ngIf="contact.phone3">Office: <span>{{contact.phone3 | tel}}</span></p>
+          <p *ngIf="contact.fax">Fax: <span>{{contact.fax | tel}}</span></p>
+          <p *ngIf="contact.fax2">A/R Fax: <span>{{contact.fax2 | tel}}</span></p>
+          <p *ngIf="contact.birthday">Birthday: <span>{{contact.birthday | bday}}</span></p>
+          <p *ngIf="contact.disc">DiSC: <span>{{contact.disc}}</span></p>
         </div>
-      </ul>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="error">
+  <div [@topDown]="true" *ngIf="error">
     <p class="text-danger">Something went wrong... Please make sure you have a WiFi or mobile data connection and try refreshing your&nbsp;browser.</p>
   </div>
 </div>

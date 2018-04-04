@@ -8,19 +8,25 @@ import { Contact } from '../../services/contact';
 import { ContactService } from '../../services/contact.service';
 import { AdminService } from '../../services/admin.service';
 
+import { FadeAnimation, TopDownAnimation } from '../../animations';
+
 import { AdminFormComponent } from '../admin-form/admin-form.component';
 import { AdminDeleteComponent } from '../admin-delete/admin-delete.component';
 
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.css']
+  styleUrls: ['./admin-home.component.css'],
+  animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class AdminHomeComponent implements OnInit {
   contacts = [];
   filteredContacts = [];
   contact: Contact;
   filter = '';
+  modalOptions = {
+    maxWidth: '768px'
+  };
   loading = true;
   error = false;
 
@@ -58,7 +64,7 @@ export class AdminHomeComponent implements OnInit {
     this.contact = new Contact();
     this.contactService.setCurrentContact(this.contact);
 
-    const dialogRef = this.dialog.open(AdminFormComponent);
+    const dialogRef = this.dialog.open(AdminFormComponent, this.modalOptions);
 
     dialogRef.afterClosed().subscribe(() => {
       this.resetContacts();
@@ -69,7 +75,7 @@ export class AdminHomeComponent implements OnInit {
     this.contact = this.contacts.filter(contact => contact._id === id)[0];
     this.contactService.setCurrentContact(this.contact);
 
-    const dialogRef = this.dialog.open(AdminFormComponent);
+    const dialogRef = this.dialog.open(AdminFormComponent, this.modalOptions);
 
     dialogRef.afterClosed().subscribe(() => {
       this.resetContacts();
@@ -80,15 +86,11 @@ export class AdminHomeComponent implements OnInit {
     this.contact = this.contacts.filter(contact => contact._id === id)[0];
     this.contactService.setCurrentContact(this.contact);
 
-    const dialogRef = this.dialog.open(AdminDeleteComponent);
+    const dialogRef = this.dialog.open(AdminDeleteComponent, this.modalOptions);
 
     dialogRef.afterClosed().subscribe(() => {
       this.resetContacts();
     });
-  }
-
-  directory() {
-    this.router.navigate(['/']);
   }
 
   updateFilter() {

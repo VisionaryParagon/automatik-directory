@@ -14,12 +14,15 @@ import { MainComponent } from './main/main.component';
 // Services
 import { AdminService } from './services/admin.service';
 import { ContactService } from './services/contact.service';
+import { WindowRef } from './services/window-ref.service';
+import { FullComponent } from './full/full.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    FullComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { ContactService } from './services/contact.service';
   ],
   providers: [
     AdminService,
-    ContactService
+    ContactService,
+    WindowRef
   ],
   bootstrap: [
     AppComponent

@@ -21,7 +21,7 @@ export class AdminDeleteComponent implements OnInit {
 
   ngOnInit() {
     this.contact = this.contactService.getCurrentContact();
-    console.log(this.contact);
+    // console.log(this.contact);
   }
 
   deleteContact() {

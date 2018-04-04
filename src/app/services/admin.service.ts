@@ -13,7 +13,7 @@ export class AdminService {
 
   // login
   login(user) {
-    return this.http.post('/admin/login', user)
+    return this.http.post('/admn/login', user)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -21,7 +21,7 @@ export class AdminService {
 
   // logout
   logout() {
-    return this.http.get('/admin/logout')
+    return this.http.get('/admn/logout')
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -29,7 +29,7 @@ export class AdminService {
 
   // get status
   status() {
-    return this.http.get('/admin/status')
+    return this.http.get('/admn/status')
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

@@ -6,10 +6,13 @@ import { CookieService } from 'ngx-cookie';
 import { Admin } from '../../services/admin';
 import { AdminService } from '../../services/admin.service';
 
+import { FadeAnimation, TopDownAnimation } from '../../animations';
+
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css']
+  styleUrls: ['./admin-login.component.css'],
+  animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class AdminLoginComponent implements OnInit {
   returnUrl: string;
