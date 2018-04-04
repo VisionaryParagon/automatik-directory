@@ -13,7 +13,7 @@
 
     <div *ngIf="!loading">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Search..." [(ngModel)]="filter" (keyup)="updateFilter()">
+        <input matInput placeholder="Search..." [(ngModel)]="filter" (ngModelChange)="updateFilter()">
         <span matPrefix><i class="fa fa-search fa-lg"></i> &nbsp;</span>
         <span matSuffix *ngIf="filter" (click)="clearFilter()"><i class="fa fa-times fa-lg"></i></span>
       </mat-form-field>

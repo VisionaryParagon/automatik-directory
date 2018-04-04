@@ -15,6 +15,8 @@ import { FadeAnimation, TopDownAnimation } from '../animations';
 })
 export class FullComponent implements OnInit {
   contacts = [];
+  filteredContacts = [];
+  filter = '';
   loading = true;
   error = false;
 
@@ -32,6 +34,7 @@ export class FullComponent implements OnInit {
     this.contactService.getContacts()
       .then(res => {
         this.contacts = res;
+        this.filteredContacts = [...res];
         this.loading = false;
       })
       .catch(() => {
@@ -45,5 +48,23 @@ export class FullComponent implements OnInit {
 
   printList() {
     this.winRef.nativeWindow.print();
+  }
+
+  updateFilter() {
+    const val = this.filter.toLowerCase();
+
+    const filtered = this.filteredContacts.filter(d => {
+      return  d.first_name.toLowerCase().indexOf(val) !== -1 ||
+              d.last_name.toLowerCase().indexOf(val) !== -1 ||
+              d.phone.toLowerCase().indexOf(val) !== -1 ||
+              d.email.toLowerCase().indexOf(val) !== -1;
+    });
+
+    this.contacts = filtered;
+  }
+
+  clearFilter() {
+    this.filter = '';
+    this.getContacts();
   }
 }

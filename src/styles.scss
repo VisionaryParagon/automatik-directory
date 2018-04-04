@@ -321,7 +321,7 @@ mat-dialog-actions.mat-dialog-actions:last-child {
   }
   .contactBox {
     padding: 30px 15px;
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
     width: 25%;
   }
   .contactBox:nth-child(2),

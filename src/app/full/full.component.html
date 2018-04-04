@@ -7,6 +7,12 @@
       <button class="btn btn-secondary" routerLink="/admin"><i class="fa fa-lock"></i> Admin</button>
     </div>
 
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Search..." [(ngModel)]="filter" (ngModelChange)="updateFilter()">
+      <span matPrefix><i class="fa fa-search fa-lg"></i> &nbsp;</span>
+      <span matSuffix *ngIf="filter" (click)="clearFilter()"><i class="fa fa-times fa-lg"></i></span>
+    </mat-form-field>
+
     <div class="row" id="printThis">
       <div class="col-12 col-sm-4 col-md-3 contactBox" *ngFor="let contact of contacts | orderBy: ['last_name', 'first_name']">
         <h3><span>{{contact.first_name}}</span> <span>{{contact.last_name}}</span></h3>
