@@ -7,25 +7,33 @@
       <button class="btn btn-secondary" routerLink="/admin"><i class="fa fa-lock"></i> Admin</button>
     </div>
 
-    <mat-form-field class="w-100">
-      <input matInput placeholder="Search..." [(ngModel)]="filter" (ngModelChange)="updateFilter()">
-      <span matPrefix><i class="fa fa-search fa-lg"></i> &nbsp;</span>
-      <span matSuffix *ngIf="filter" (click)="clearFilter()"><i class="fa fa-times fa-lg"></i></span>
-    </mat-form-field>
+    <div class="d-flex justify-content-center my-4" *ngIf="loading">
+      <mat-spinner [diameter]="50" [strokeWidth]="5"></mat-spinner>
+    </div>
 
-    <div class="row" id="printThis">
-      <div class="col-12 col-sm-4 col-md-3 contactBox" *ngFor="let contact of contacts | orderBy: ['last_name', 'first_name']">
-        <h3><span>{{contact.first_name}}</span> <span>{{contact.last_name}}</span></h3>
-        <p *ngIf="contact.pseudonym"><em><span>{{contact.pseudonym}}</span></em></p>
-        <p *ngIf="contact.email">Email: <span>{{contact.email}}</span></p>
-        <p *ngIf="contact.phone">Cell: <span>{{contact.phone | tel}}</span></p>
-        <p *ngIf="contact.phone2">Home: <span>{{contact.phone2 | tel}}</span></p>
-        <p *ngIf="contact.phone3">Office: <span>{{contact.phone3 | tel}}</span></p>
-        <p *ngIf="contact.fax">Fax: <span>{{contact.fax | tel}}</span></p>
-        <p *ngIf="contact.fax2">A/R Fax: <span>{{contact.fax2 | tel}}</span></p>
-        <p *ngIf="contact.birthday">Birthday: <span>{{contact.birthday | bday}}</span></p>
-        <p *ngIf="contact.disc">DiSC: <span>{{contact.disc}}</span></p>
+    <div *ngIf="!loading">
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Search..." [(ngModel)]="filter" (ngModelChange)="updateFilter()">
+        <span matPrefix><i class="fa fa-search fa-lg"></i> &nbsp;</span>
+        <span matSuffix *ngIf="filter" (click)="clearFilter()"><i class="fa fa-times fa-lg"></i></span>
+      </mat-form-field>
+
+      <div class="row" id="printThis">
+        <div class="col-12 col-sm-4 col-md-3 contactBox" *ngFor="let contact of contacts">
+          <h3><span>{{contact.first_name}}</span> <span>{{contact.last_name}}</span></h3>
+          <p *ngIf="contact.pseudonym"><em><span>{{contact.pseudonym}}</span></em></p>
+          <p *ngIf="contact.email">Email: <span>{{contact.email}}</span></p>
+          <p *ngIf="contact.phone">Cell: <span>{{contact.phone | tel}}</span></p>
+          <p *ngIf="contact.phone2">Home: <span>{{contact.phone2 | tel}}</span></p>
+          <p *ngIf="contact.phone3">Office: <span>{{contact.phone3 | tel}}</span></p>
+          <p *ngIf="contact.fax">Fax: <span>{{contact.fax | tel}}</span></p>
+          <p *ngIf="contact.fax2">A/R Fax: <span>{{contact.fax2 | tel}}</span></p>
+          <p *ngIf="contact.birthday">Birthday: <span>{{contact.birthday | bday}}</span></p>
+          <p *ngIf="contact.disc">DiSC: <span>{{contact.disc}}</span></p>
+        </div>
       </div>
+
+      <p *ngIf="!contacts.length">No contacts found.</p>
     </div>
   </div>
 

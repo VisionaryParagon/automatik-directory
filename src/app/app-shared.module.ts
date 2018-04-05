@@ -8,10 +8,8 @@ import {
 } from '@angular/material';
 
 import { CookieModule } from 'ngx-cookie';
-import { OrderModule } from 'ngx-order-pipe';
 
 // Pipes
-import { SortPipe } from './pipes/sort.pipe';
 import { TelPipe } from './pipes/tel.pipe';
 import { BdayPipe } from './pipes/bday.pipe';
 
@@ -22,11 +20,9 @@ import { BdayPipe } from './pipes/bday.pipe';
     MatDialogModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    CookieModule.forRoot(),
-    OrderModule
+    CookieModule.forRoot()
   ],
   declarations: [
-    SortPipe,
     TelPipe,
     BdayPipe
   ],
@@ -37,8 +33,6 @@ import { BdayPipe } from './pipes/bday.pipe';
     MatInputModule,
     MatProgressSpinnerModule,
     CookieModule,
-    OrderModule,
-    SortPipe,
     TelPipe,
     BdayPipe
   ]

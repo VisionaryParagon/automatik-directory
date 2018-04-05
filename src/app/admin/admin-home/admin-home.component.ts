@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie';
 
 import { Contact } from '../../services/contact';
 import { ContactService } from '../../services/contact.service';
+import { SortService } from '../../services/sort.service';
 import { AdminService } from '../../services/admin.service';
 
 import { FadeAnimation, TopDownAnimation } from '../../animations';
@@ -24,6 +25,9 @@ export class AdminHomeComponent implements OnInit {
   filteredContacts = [];
   contact: Contact;
   filter = '';
+  sortOptions = [
+    'last_name'
+  ];
   modalOptions = {
     maxWidth: '768px'
   };
@@ -35,6 +39,7 @@ export class AdminHomeComponent implements OnInit {
     private dialog: MatDialog,
     private cookieService: CookieService,
     private contactService: ContactService,
+    private sortService: SortService,
     private adminService: AdminService
   ) { }
 
@@ -45,8 +50,8 @@ export class AdminHomeComponent implements OnInit {
   getContacts() {
     this.contactService.getContacts()
       .then(res => {
-        this.contacts = res;
-        this.filteredContacts = [...res];
+        this.contacts = this.sortService.sort(res, this.sortOptions);
+        this.filteredContacts = this.sortService.sort([...res], this.sortOptions);
         this.loading = false;
       })
       .catch(() => {

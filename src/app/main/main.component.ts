@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-import { Contact } from '../services/contact';
 import { ContactService } from '../services/contact.service';
+import { SortService } from '../services/sort.service';
 
 import { FadeAnimation, TopDownAnimation } from '../animations';
 
@@ -16,12 +16,16 @@ export class MainComponent implements OnInit {
   contacts = [];
   filteredContacts = [];
   filter = '';
+  sortOptions = [
+    'last_name'
+  ];
   loading = true;
   error = false;
 
   constructor(
     private sanitizer: DomSanitizer,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private sortService: SortService
   ) { }
 
   ngOnInit() {
@@ -31,8 +35,8 @@ export class MainComponent implements OnInit {
   getContacts() {
     this.contactService.getContacts()
       .then(res => {
-        this.contacts = res;
-        this.filteredContacts = [...res];
+        this.contacts = this.sortService.sort(res, this.sortOptions);
+        this.filteredContacts = this.sortService.sort([...res], this.sortOptions);
         this.loading = false;
       })
       .catch(() => {

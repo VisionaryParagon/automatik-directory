@@ -19,7 +19,7 @@
 
       <ul id="contacts">
         <div class="group">
-          <li *ngFor="let contact of contacts | orderBy: ['last_name', 'first_name']">
+          <li *ngFor="let contact of contacts">
             <div class="row">
               <div class="col-12">
                 <img [src]="contact.image" [alt]="contact.first_name + ' ' + contact.last_name">
@@ -47,6 +47,8 @@
           </li>
         </div>
       </ul>
+
+      <p *ngIf="!contacts.length">No contacts found.</p>
     </div>
   </div>
 

@@ -10,12 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 // App Components
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
+import { FullComponent } from './full/full.component';
 
 // Services
 import { AdminService } from './services/admin.service';
 import { ContactService } from './services/contact.service';
+import { SortService } from './services/sort.service';
 import { WindowRef } from './services/window-ref.service';
-import { FullComponent } from './full/full.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FullComponent } from './full/full.component';
   providers: [
     AdminService,
     ContactService,
+    SortService,
     WindowRef
   ],
   bootstrap: [
