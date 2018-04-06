@@ -10,7 +10,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 
 // db
-mongoose.connect('mongodb://admin:Automatik@ds031157.mlab.com:31157/automatik-directory', {
+mongoose.connect('mongodb://admin:Automatik@ds237379.mlab.com:37379/automatik-apps', {
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000
 });
