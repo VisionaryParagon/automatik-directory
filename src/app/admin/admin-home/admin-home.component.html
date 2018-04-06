@@ -34,7 +34,7 @@
           <p *ngIf="contact.phone3">Office: <span>{{contact.phone3 | tel}}</span></p>
           <p *ngIf="contact.fax">Fax: <span>{{contact.fax | tel}}</span></p>
           <p *ngIf="contact.fax2">A/R Fax: <span>{{contact.fax2 | tel}}</span></p>
-          <p *ngIf="contact.birthday">Birthday: <span>{{contact.birthday | bday}}</span></p>
+          <p *ngIf="contact.birthday">Birthday: <span [innerHTML]="contact.birthday | bday"></span></p>
           <p *ngIf="contact.disc">DiSC: <span>{{contact.disc}}</span></p>
         </div>
       </div>

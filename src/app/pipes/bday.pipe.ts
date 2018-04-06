@@ -6,21 +6,32 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class BdayPipe implements PipeTransform {
 
   transform(bday: string): string {
-    bday.replace('1st', '1<sup>st</sup>');
-    bday.replace('1th', '1<sup>th</sup>');
-    bday.replace('2nd', '2<sup>nd</sup>');
-    bday.replace('2th', '2<sup>th</sup>');
-    bday.replace('3rd', '3<sup>rd</sup>');
-    bday.replace('3th', '3<sup>th</sup>');
-    bday.replace('4th', '4<sup>th</sup>');
-    bday.replace('5th', '5<sup>th</sup>');
-    bday.replace('6th', '6<sup>th</sup>');
-    bday.replace('7th', '7<sup>th</sup>');
-    bday.replace('8th', '8<sup>th</sup>');
-    bday.replace('9th', '9<sup>th</sup>');
-    bday.replace('0th', '0<sup>th</sup>');
+    let date = bday;
+    const sups = [
+      '1st',
+      '1th',
+      '2nd',
+      '2th',
+      '3rd',
+      '3th',
+      '4th',
+      '5th',
+      '6th',
+      '7th',
+      '8th',
+      '9th',
+      '0th'
+    ];
 
-    return bday;
+    sups.forEach(s => {
+      if (bday.indexOf(s) > -1) {
+        const sup = s.replace(/(\d{1})(\D{2})/g, '$1' + '$2'.sup());
+        date = bday.replace(s, sup);
+        return date;
+      }
+    });
+
+    return date;
   }
 
 }
