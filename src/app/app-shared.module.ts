@@ -30,6 +30,7 @@ import { BdayPipe } from './pipes/bday.pipe';
   ],
   exports: [
     CommonModule,
+    HttpClientModule,
     FormsModule,
     MatDialogModule,
     MatInputModule,
