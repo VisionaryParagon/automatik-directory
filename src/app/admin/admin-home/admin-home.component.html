@@ -20,7 +20,7 @@
 
       <div class="row" id="printThis">
         <div class="col-12 col-sm-4 col-md-3 contactBox" *ngFor="let contact of contacts">
-          <h3><span>{{contact.first_name}}</span> <span>{{contact.last_name}}</span></h3>
+          <h3>{{contact.first_name}} {{contact.last_name}}</h3>
 
           <div class="adminBtns">
             <a class="btn btn-warning" (click)="editContact(contact._id)"><i class="fa fa-edit"></i> Edit</a>

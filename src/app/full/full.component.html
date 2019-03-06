@@ -20,7 +20,7 @@
 
       <div class="row" id="printThis">
         <div class="col-12 col-sm-4 col-md-3 contactBox" *ngFor="let contact of contacts">
-          <h3><span>{{contact.first_name}}</span> <span>{{contact.last_name}}</span></h3>
+          <h3>{{contact.first_name}} {{contact.last_name}}</h3>
           <p *ngIf="contact.pseudonym"><em><span>{{contact.pseudonym}}</span></em></p>
           <p *ngIf="contact.email">Email: <span>{{contact.email}}</span></p>
           <p *ngIf="contact.phone">Cell: <span>{{contact.phone | tel}}</span></p>

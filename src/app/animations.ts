@@ -1,8 +1,7 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
-import { AnimationEntryMetadata } from '@angular/core';
+import { AnimationTriggerMetadata, animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 // component transition animations
-export const FadeAnimation: AnimationEntryMetadata =
+export const FadeAnimation: AnimationTriggerMetadata =
   trigger('fade', [
     state('*', style({opacity: 1})),
     transition(':enter', [
@@ -16,7 +15,7 @@ export const FadeAnimation: AnimationEntryMetadata =
   ]);
 
 // quick fade animations
-export const QuickFade: AnimationEntryMetadata =
+export const QuickFade: AnimationTriggerMetadata =
   trigger('quickFade', [
     state('*', style({opacity: 1})),
     transition(':enter', [
@@ -30,7 +29,7 @@ export const QuickFade: AnimationEntryMetadata =
   ]);
 
 // top down animations
-export const TopDownAnimation: AnimationEntryMetadata =
+export const TopDownAnimation: AnimationTriggerMetadata =
   trigger('topDown', [
     state('*', style({height: '*', opacity: 1})),
     transition(':enter', [

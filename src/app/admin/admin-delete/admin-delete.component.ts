@@ -7,7 +7,7 @@ import { ContactService } from '../../services/contact.service';
 @Component({
   selector: 'app-admin-delete',
   templateUrl: './admin-delete.component.html',
-  styleUrls: ['./admin-delete.component.css']
+  styleUrls: ['./admin-delete.component.scss']
 })
 export class AdminDeleteComponent implements OnInit {
   contact: Contact;
@@ -26,12 +26,10 @@ export class AdminDeleteComponent implements OnInit {
 
   deleteContact() {
     this.contactService.deleteContact(this.contact)
-      .then(() => {
-        this.success = true;
-      })
-      .catch(() => {
-        this.showError();
-      });
+      .subscribe(
+        res => this.success = true,
+        err => this.showError()
+      );
   }
 
   showError() {

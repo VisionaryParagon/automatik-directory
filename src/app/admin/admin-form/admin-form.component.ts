@@ -9,7 +9,7 @@ import { FadeAnimation, TopDownAnimation } from '../../animations';
 @Component({
   selector: 'app-admin-form',
   templateUrl: './admin-form.component.html',
-  styleUrls: ['./admin-form.component.css'],
+  styleUrls: ['./admin-form.component.scss'],
   animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class AdminFormComponent implements OnInit {
@@ -43,24 +43,28 @@ export class AdminFormComponent implements OnInit {
 
       if (!this.edit) {
         this.contactService.createContact(this.contact)
-          .then(() => {
-            this.success = true;
-            this.submitted = false;
-          })
-          .catch(() => {
-            this.showError();
-            this.submitted = false;
-          });
+          .subscribe(
+            res => {
+              this.success = true;
+              this.submitted = false;
+            },
+            err => {
+              this.showError();
+              this.submitted = false;
+            }
+          );
       } else {
         this.contactService.updateContact(this.contact)
-          .then(() => {
-            this.success = true;
-            this.submitted = false;
-          })
-          .catch(() => {
-            this.showError();
-            this.submitted = false;
-          });
+          .subscribe(
+            res => {
+              this.success = true;
+              this.submitted = false;
+            },
+            err => {
+              this.showError();
+              this.submitted = false;
+            }
+          );
       }
     }
     return false;

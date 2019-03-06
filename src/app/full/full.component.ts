@@ -10,7 +10,7 @@ import { FadeAnimation, TopDownAnimation } from '../animations';
 @Component({
   selector: 'app-full',
   templateUrl: './full.component.html',
-  styleUrls: ['./full.component.css'],
+  styleUrls: ['./full.component.scss'],
   animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class FullComponent implements OnInit {
@@ -36,14 +36,14 @@ export class FullComponent implements OnInit {
 
   getContacts() {
     this.contactService.getContacts()
-      .then(res => {
-        this.contacts = this.sortService.sort(res, this.sortOptions);
-        this.filteredContacts = this.sortService.sort([...res], this.sortOptions);
-        this.loading = false;
-      })
-      .catch(() => {
-        this.error = true;
-      });
+      .subscribe(
+        res => {
+          this.contacts = this.sortService.sort(res, this.sortOptions);
+          this.filteredContacts = this.sortService.sort([...res], this.sortOptions);
+          this.loading = false;
+        },
+        err => this.error = true
+      );
   }
 
   insurance() {

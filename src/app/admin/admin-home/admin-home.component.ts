@@ -17,7 +17,7 @@ import { AdminDeleteComponent } from '../admin-delete/admin-delete.component';
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.css'],
+  styleUrls: ['./admin-home.component.scss'],
   animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class AdminHomeComponent implements OnInit {
@@ -49,14 +49,14 @@ export class AdminHomeComponent implements OnInit {
 
   getContacts() {
     this.contactService.getContacts()
-      .then(res => {
-        this.contacts = this.sortService.sort(res, this.sortOptions);
-        this.filteredContacts = this.sortService.sort([...res], this.sortOptions);
-        this.loading = false;
-      })
-      .catch(() => {
-        this.error = true;
-      });
+      .subscribe(
+        res => {
+          this.contacts = this.sortService.sort(res, this.sortOptions);
+          this.filteredContacts = this.sortService.sort([...res], this.sortOptions);
+          this.loading = false;
+        },
+        err => this.error = true
+      );
   }
 
   resetContacts() {
@@ -117,7 +117,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
   logout() {
-    this.adminService.loggedIn = false;
+    this.adminService.state.loggedIn = false;
     this.cookieService.removeAll();
     this.adminService.logout();
 

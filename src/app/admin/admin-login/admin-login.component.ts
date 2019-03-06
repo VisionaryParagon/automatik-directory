@@ -11,7 +11,7 @@ import { FadeAnimation, TopDownAnimation } from '../../animations';
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css'],
+  styleUrls: ['./admin-login.component.scss'],
   animations: [ FadeAnimation, TopDownAnimation ]
 })
 export class AdminLoginComponent implements OnInit {
@@ -45,36 +45,38 @@ export class AdminLoginComponent implements OnInit {
 
     if (isValid) {
       this.adminService.login(user)
-        .then((res) => {
-          if (res.message === 'Login successful!') {
-            this.hideError();
+        .subscribe(
+          res => {
+            if (res.message === 'Login successful!') {
+              this.hideError();
 
-            // Set cookie
-            this.cookieService.put('adminId', 'verified');
+              // Set cookie
+              this.cookieService.put('adminId', 'verified');
 
-            // Save login status
-            this.adminService.loggedIn = true;
+              // Save login status
+              this.adminService.state.loggedIn = true;
 
-            // Redirect to saved URL or home
-            this.router.navigateByUrl(this.returnUrl);
-          } else {
-            this.invalid = true;
-            this.err = res.message;
+              // Redirect to saved URL or home
+              this.router.navigateByUrl(this.returnUrl);
+            } else {
+              this.invalid = true;
+              this.err = res.message;
+            }
+          },
+          err => {
+            if (err.name === 'IncorrectUsernameError') {
+              this.invalidUsername = true;
+              this.invalid = true;
+              this.err = 'Invalid username';
+            } else if (err.name === 'IncorrectPasswordError') {
+              this.invalidPassword = true;
+              this.invalid = true;
+              this.err = 'Invalid password';
+            } else {
+              this.showError();
+            }
           }
-        })
-        .catch((res) => {
-          if (res.name === 'IncorrectUsernameError') {
-            this.invalidUsername = true;
-            this.invalid = true;
-            this.err = 'Invalid username';
-          } else if (res.name === 'IncorrectPasswordError') {
-            this.invalidPassword = true;
-            this.invalid = true;
-            this.err = 'Invalid password';
-          } else {
-            this.showError();
-          }
-        });
+        );
     }
     return false;
   }
