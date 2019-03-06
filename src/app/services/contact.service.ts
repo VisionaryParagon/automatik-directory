@@ -9,8 +9,6 @@ import { Contact } from './contact';
 @Injectable({
   providedIn: 'root'
 })
-
-@Injectable()
 export class ContactService {
   private contactUrl = '/dir/contacts';
   currentContact: Contact = new Contact();

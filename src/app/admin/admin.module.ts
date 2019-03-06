@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 // Modules
 import { AppSharedModule } from '../app-shared.module';
@@ -25,7 +24,6 @@ import { AdminDeleteComponent } from './admin-delete/admin-delete.component';
     AdminDeleteComponent
   ],
   imports: [
-    CommonModule,
     AppSharedModule,
     AdminRoutingModule
   ]
